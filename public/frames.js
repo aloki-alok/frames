@@ -242,10 +242,9 @@ export function play(root = document) {
   if (reduced()) return;
   root.querySelectorAll('.fr-plot, .fr-stub, .fr-tui').forEach((el) => {
     if (el.closest('[data-fr-static]')) return;
-    el.getAnimations({ subtree: true }).forEach((a) => {
-      if (a.effect?.getComputedTiming().iterations === Infinity) return;
-      a.cancel(); a.play();
-    });
+    el.classList.add('fr-replay');
+    void el.offsetWidth;
+    el.classList.remove('fr-replay');
   });
 }
 

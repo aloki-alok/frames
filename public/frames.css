@@ -466,6 +466,13 @@
   transition: none !important;
 }
 
+.fr-replay,
+.fr-replay::before,
+.fr-replay::after,
+.fr-replay *,
+.fr-replay *::before,
+.fr-replay *::after { animation: none !important; }
+
 .fr-plot:not([data-fr-plot]) [data-fr-zone] { visibility: hidden; }
 
 @supports not (width: round(down, 50%, 5%)) {
