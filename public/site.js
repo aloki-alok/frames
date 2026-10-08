@@ -112,7 +112,7 @@ function themeTiles() {
     use.type = 'button';
     use.className = 'use';
     use.setAttribute('aria-label', `Use the ${theme} theme`);
-    use.addEventListener('click', () => setTheme(theme));
+    tile.addEventListener('click', () => setTheme(theme));
     tile.appendChild(use);
     grid.appendChild(tile);
   });
