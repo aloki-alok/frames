@@ -40,7 +40,7 @@ function demoBars() {
 
     const replay = document.createElement('button');
     replay.type = 'button';
-    replay.textContent = 'replay';
+    replay.textContent = 'replay animation';
     replay.addEventListener('click', () => play(demo));
 
     const details = document.createElement('details');
