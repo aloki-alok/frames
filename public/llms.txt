@@ -5,8 +5,8 @@
 ## Install
 
 ```html
-<link rel="stylesheet" href="frames.css">
-<script type="module" src="frames.js"></script>
+<link rel="stylesheet" href="https://crwl.tech/frames.css">
+<script type="module" src="https://crwl.tech/frames.js"></script>
 ```
 
 The stylesheet alone renders every figure. The script adds dragging, punching, zone readouts, row selection and live graphs.
@@ -118,5 +118,5 @@ The stylesheet alone renders every figure. The script adds dragging, punching, z
 
 ## More
 
-- [Skill file](skill.md): when to use which figure, and the rules.
+- [Skill file](https://crwl.tech/skill.md): when to use which figure, and the rules.
 - [Source](https://github.com/ryu-ryuk/frames)

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "llms": "bun scripts/llms.js",
+    "llms": "bun scripts/llms.js https://crwl.tech",
     "dev": "bunx wrangler dev",
     "deploy": "bunx wrangler deploy"
   }

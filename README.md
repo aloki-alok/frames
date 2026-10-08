@@ -1,5 +1,7 @@
 # frames
 
+**[crwl.tech](https://crwl.tech)**
+
 Framed figures for docs, dashboards and write-ups. Three styles, ten themes, plain CSS and one small optional script.
 
 - **plot**: an engineering drawing sheet with a zoned border, crop marks, a title block and dimension lines.
@@ -11,8 +13,8 @@ Every figure renders with the stylesheet alone. The script adds dragging, punchi
 ## Use
 
 ```html
-<link rel="stylesheet" href="https://frames.example/frames.css">
-<script type="module" src="https://frames.example/frames.js"></script>
+<link rel="stylesheet" href="https://crwl.tech/frames.css">
+<script type="module" src="https://crwl.tech/frames.js"></script>
 ```
 
 Copy a figure from the site or from `llms.txt`, then:
@@ -30,7 +32,7 @@ Themes: paper, graphite, phosphor, blueprint, riso, moss, signal, ultraviolet, r
 
 ```sh
 bun test
-bun scripts/llms.js https://frames.example
+bun scripts/llms.js https://crwl.tech
 bunx wrangler dev
 ```
 
