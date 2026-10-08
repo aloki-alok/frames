@@ -1,4 +1,4 @@
-# frames
+# tick
 
 **[crwl.tech](https://crwl.tech)**
 
@@ -13,14 +13,14 @@ Every figure renders with the stylesheet alone. The script adds dragging, punchi
 ## Use
 
 ```html
-<link rel="stylesheet" href="https://crwl.tech/frames.css">
-<script type="module" src="https://crwl.tech/frames.js"></script>
+<link rel="stylesheet" href="https://crwl.tech/tick.css">
+<script type="module" src="https://crwl.tech/tick.js"></script>
 ```
 
 Copy a figure from the site or from `llms.txt`, then:
 
-- pick a theme with `data-fr-theme="ultraviolet"` on any ancestor,
-- turn motion off with `data-fr-static` on any ancestor.
+- pick a theme with `data-tk-theme="ultraviolet"` on any ancestor,
+- turn motion off with `data-tk-static` on any ancestor.
 
 Themes: paper, graphite, phosphor, blueprint, riso, moss, signal, ultraviolet, rosewater, glacier. With no theme set, figures follow the system: paper in light mode, ultraviolet in dark mode.
 

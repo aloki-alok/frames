@@ -1,5 +1,5 @@
 import { test, expect } from 'bun:test';
-import { braille, fraction, label, normalize, resample } from '../public/frames.js';
+import { braille, fraction, label, normalize, resample } from '../public/tick.js';
 
 const BOTTOM_ROW_DOTS = [0x40, 0x80];
 const TOP_ROW_DOTS = [0x01, 0x08];

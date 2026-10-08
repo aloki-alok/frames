@@ -49,7 +49,7 @@ export function label(value, { max, unit } = {}) {
 
 
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-const still = (el) => reduced() || !!el.closest('[data-fr-static]');
+const still = (el) => reduced() || !!el.closest('[data-tk-static]');
 const figureOf = (el) => el.closest('figure') ?? el.parentElement;
 const emit = (el, name, detail) => el.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
 const once = (el, key) => (el.dataset[key] ? false : (el.dataset[key] = '1'));
@@ -60,12 +60,12 @@ const focusable = (host, keys) => {
 };
 
 function plot(el) {
-  if (!once(el, 'frPlot')) return;
+  if (!once(el, 'tkPlot')) return;
   const cols = 'ABCD', rows = '123';
   const zones = document.createElement('div');
-  zones.className = 'fr-zones';
+  zones.className = 'tk-zones';
   zones.setAttribute('aria-hidden', 'true');
-  const band = 'var(--fr-band)';
+  const band = 'var(--tk-band)';
   const put = (text, left, top) => {
     const s = document.createElement('span');
     s.textContent = text; s.style.left = left; s.style.top = top;
@@ -80,24 +80,24 @@ function plot(el) {
     const x = (f) => `calc(${band} + (100% - 2 * ${band}) * ${f})`;
     put(c, x((i + 0.5) / 4), `calc(${band} / 2)`);
     put(c, x((i + 0.5) / 4), `calc(100% - ${band} / 2)`);
-    if (i) { tick('fr-tick-x', x(i / 4), '0'); tick('fr-tick-x', x(i / 4), `calc(100% - ${band})`); }
+    if (i) { tick('tk-tick-x', x(i / 4), '0'); tick('tk-tick-x', x(i / 4), `calc(100% - ${band})`); }
   });
   [...rows].forEach((r, i) => {
     const y = (f) => `calc(${band} + (100% - 2 * ${band}) * ${f})`;
     put(r, `calc(${band} / 2)`, y((i + 0.5) / 3));
     put(r, `calc(100% - ${band} / 2)`, y((i + 0.5) / 3));
-    if (i) { tick('fr-tick-y', '0', y(i / 3)); tick('fr-tick-y', `calc(100% - ${band})`, y(i / 3)); }
+    if (i) { tick('tk-tick-y', '0', y(i / 3)); tick('tk-tick-y', `calc(100% - ${band})`, y(i / 3)); }
   });
-  const xh = document.createElement('i'); xh.className = 'fr-xh';
-  const yh = document.createElement('i'); yh.className = 'fr-yh';
+  const xh = document.createElement('i'); xh.className = 'tk-xh';
+  const yh = document.createElement('i'); yh.className = 'tk-yh';
   zones.append(xh, yh);
   el.appendChild(zones);
 
-  const readout = el.querySelector('[data-fr-zone]');
+  const readout = el.querySelector('[data-tk-zone]');
   const idle = readout?.textContent;
   el.addEventListener('pointermove', (e) => {
     const r = el.getBoundingClientRect();
-    const b = parseFloat(getComputedStyle(el).getPropertyValue('--fr-band')) || 15;
+    const b = parseFloat(getComputedStyle(el).getPropertyValue('--tk-band')) || 15;
     const x = e.clientX - r.left, y = e.clientY - r.top;
     xh.style.top = `${y}px`; yh.style.left = `${x}px`;
     const fx = Math.min(0.999, clamp01((x - b) / (r.width - 2 * b)));
@@ -108,22 +108,22 @@ function plot(el) {
 }
 
 function slider(el) {
-  if (!once(el, 'frSlider')) return;
-  const opts = { max: Number(el.dataset.frMax) || 0, unit: el.dataset.frUnit };
-  const step = Number(el.dataset.frStep) || 0.025;
+  if (!once(el, 'tkSlider')) return;
+  const opts = { max: Number(el.dataset.tkMax) || 0, unit: el.dataset.tkUnit };
+  const step = Number(el.dataset.tkStep) || 0.025;
   if (!el.hasAttribute('role')) el.setAttribute('role', 'slider');
   if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
   el.setAttribute('aria-valuemin', '0');
   el.setAttribute('aria-valuemax', String(opts.max || 100));
   const set = (v, input = true) => {
     const value = clamp01(v);
-    el.style.setProperty('--fr-value', String(value));
+    el.style.setProperty('--tk-value', String(value));
     el.setAttribute('aria-valuenow', String(Math.round(value * (opts.max || 100))));
     el.setAttribute('aria-valuetext', label(value, opts));
-    el.parentElement.querySelectorAll('[data-fr-label]').forEach((l) => { l.textContent = label(value, opts); });
-    if (input) emit(el, 'fr-input', { value });
+    el.parentElement.querySelectorAll('[data-tk-label]').forEach((l) => { l.textContent = label(value, opts); });
+    if (input) emit(el, 'tk-input', { value });
   };
-  const current = () => clamp01(getComputedStyle(el).getPropertyValue('--fr-value'));
+  const current = () => clamp01(getComputedStyle(el).getPropertyValue('--tk-value'));
   set(current(), false);
   el.addEventListener('pointerdown', (e) => { el.setPointerCapture(e.pointerId); set(fraction(e.clientX, el.getBoundingClientRect())); });
   el.addEventListener('pointermove', (e) => { if (el.hasPointerCapture(e.pointerId)) set(fraction(e.clientX, el.getBoundingClientRect())); });
@@ -135,40 +135,40 @@ function slider(el) {
 }
 
 function holes(list) {
-  if (!once(list, 'frHoles')) return;
+  if (!once(list, 'tkHoles')) return;
   const count = () => {
     const all = list.querySelectorAll('button[aria-pressed]');
     const on = list.querySelectorAll('button[aria-pressed="true"]');
-    figureOf(list).querySelectorAll('[data-fr-count]').forEach((c) => { c.textContent = `${on.length} of ${all.length} punched`; });
+    figureOf(list).querySelectorAll('[data-tk-count]').forEach((c) => { c.textContent = `${on.length} of ${all.length} punched`; });
   };
   list.addEventListener('click', (e) => {
     const b = e.target.closest('button[aria-pressed]');
     if (!b) return;
     b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
-    if (!still(b)) { b.classList.remove('fr-pop'); void b.offsetWidth; b.classList.add('fr-pop'); }
+    if (!still(b)) { b.classList.remove('tk-pop'); void b.offsetWidth; b.classList.add('tk-pop'); }
     count();
-    emit(b, 'fr-toggle', { pressed: b.getAttribute('aria-pressed') === 'true' });
+    emit(b, 'tk-toggle', { pressed: b.getAttribute('aria-pressed') === 'true' });
   });
   count();
 }
 
 function stub(side) {
-  if (!once(side, 'frStub')) return;
+  if (!once(side, 'tkStub')) return;
   side.addEventListener('click', () => {
-    const torn = side.closest('.fr-stub').classList.toggle('fr-torn');
+    const torn = side.closest('.tk-stub').classList.toggle('tk-torn');
     side.setAttribute('aria-pressed', String(torn));
   });
   if (side.tagName === 'BUTTON') side.setAttribute('aria-pressed', 'false');
 }
 
 function procs(table) {
-  if (!once(table, 'frProcs')) return;
+  if (!once(table, 'tkProcs')) return;
   const rows = () => [...table.tBodies[0]?.rows ?? []];
   const select = (i) => {
     const all = rows(); if (!all.length) return;
     const at = Math.min(all.length - 1, Math.max(0, i));
     all.forEach((r, n) => r.setAttribute('aria-current', String(n === at)));
-    emit(table, 'fr-select', { index: at, row: all[at] });
+    emit(table, 'tk-select', { index: at, row: all[at] });
   };
   const at = () => rows().findIndex((r) => r.getAttribute('aria-current') === 'true');
   table.addEventListener('click', (e) => { const r = e.target.closest('tbody tr'); if (r) select(rows().indexOf(r)); });
@@ -187,16 +187,16 @@ const io = typeof IntersectionObserver === 'function'
   : null;
 
 function graph(pre) {
-  if (!once(pre, 'frGraph')) return;
-  const rows = Number(pre.dataset.frRows) || 3;
-  let series = (pre.dataset.frSeries || '').split(',').map(Number).filter((n) => !Number.isNaN(n));
+  if (!once(pre, 'tkGraph')) return;
+  const rows = Number(pre.dataset.tkRows) || 3;
+  let series = (pre.dataset.tkSeries || '').split(',').map(Number).filter((n) => !Number.isNaN(n));
   if (!series.length) return;
-  const max = Number(pre.dataset.frMax) || 0;
-  const now = figureOf(pre).querySelector('[data-fr-now]');
+  const max = Number(pre.dataset.tkMax) || 0;
+  const now = figureOf(pre).querySelector('[data-tk-now]');
   let cols = 0;
   const draw = () => {
     if (cols) pre.textContent = braille(normalize(resample(series, cols * 2)), rows);
-    if (now) now.textContent = label(series[series.length - 1], { max, unit: pre.dataset.frUnit });
+    if (now) now.textContent = label(series[series.length - 1], { max, unit: pre.dataset.tkUnit });
   };
   const fit = () => {
     const probe = document.createElement('span');
@@ -210,14 +210,14 @@ function graph(pre) {
   fit();
   document.fonts?.ready.then(fit);
   if (typeof ResizeObserver === 'function') new ResizeObserver(fit).observe(pre);
-  if (!pre.hasAttribute('data-fr-live')) return;
+  if (!pre.hasAttribute('data-tk-live')) return;
   let paused = false;
   const host = figureOf(pre);
   focusable(host, 'Space');
   host.addEventListener('keydown', (e) => {
     if (e.key !== ' ' || e.target !== host || !plainKey(e)) return;
     e.preventDefault(); paused = !paused;
-    emit(pre, 'fr-pause', { paused });
+    emit(pre, 'tk-pause', { paused });
   });
   io?.observe(pre);
   const timer = setInterval(() => {
@@ -230,25 +230,25 @@ function graph(pre) {
 }
 
 export function init(root = document) {
-  root.querySelectorAll('.fr-plot').forEach(plot);
-  root.querySelectorAll('[data-fr-input]').forEach(slider);
-  root.querySelectorAll('.fr-holes').forEach(holes);
-  root.querySelectorAll('.fr-stub-side').forEach(stub);
-  root.querySelectorAll('.fr-procs').forEach(procs);
-  root.querySelectorAll('.fr-braille').forEach(graph);
+  root.querySelectorAll('.tk-plot').forEach(plot);
+  root.querySelectorAll('[data-tk-input]').forEach(slider);
+  root.querySelectorAll('.tk-holes').forEach(holes);
+  root.querySelectorAll('.tk-stub-side').forEach(stub);
+  root.querySelectorAll('.tk-procs').forEach(procs);
+  root.querySelectorAll('.tk-braille').forEach(graph);
 }
 
 export function play(root = document) {
   if (reduced()) return;
-  root.querySelectorAll('.fr-plot, .fr-stub, .fr-tui').forEach((el) => {
-    if (el.closest('[data-fr-static]')) return;
-    el.classList.add('fr-replay');
+  root.querySelectorAll('.tk-plot, .tk-stub, .tk-tui').forEach((el) => {
+    if (el.closest('[data-tk-static]')) return;
+    el.classList.add('tk-replay');
     void el.offsetWidth;
-    el.classList.remove('fr-replay');
+    el.classList.remove('tk-replay');
   });
 }
 
-if (typeof document !== 'undefined' && !document.documentElement.hasAttribute('data-fr-manual')) {
+if (typeof document !== 'undefined' && !document.documentElement.hasAttribute('data-tk-manual')) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init());
   else init();
 }

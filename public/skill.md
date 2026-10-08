@@ -1,17 +1,17 @@
 ---
-name: frames
-description: Place framed figures (frames.css) in HTML docs, dashboards, reports and write-ups. Three styles (plot, stub, tui), ten themes, no build step. Use when a page needs a figure that scans faster than prose, or when the user mentions frames, framed figures, plot, stub or tui panels.
+name: tick
+description: Place framed figures (tick.css) in HTML docs, dashboards, reports and write-ups. Three styles (plot, stub, tui), ten themes, no build step. Use when a page needs a figure that scans faster than prose, or when the user mentions tick, framed figures, plot, stub or tui panels.
 ---
 
-# frames
+# tick
 
 Framed figures for HTML pages. The markup for every figure lives in `llms.txt` next to this file. Copy it from there, change the labels and values, and keep the structure.
 
 ## Setup
 
 ```html
-<link rel="stylesheet" href="frames.css">
-<script type="module" src="frames.js"></script>
+<link rel="stylesheet" href="tick.css">
+<script type="module" src="tick.js"></script>
 ```
 
 The stylesheet renders everything and loads its own fonts. The script is optional and adds the interactive parts.
@@ -41,7 +41,7 @@ Keep one style per page unless the page compares them.
 - Write labels in lowercase plain words. Keep titles to one to three words.
 - Put the claim in prose next to the figure. A figure supports the text, it does not replace it.
 - Use at most two figures per section.
-- Set values with `--fr-value` (0 to 1) and the visible label with `data-fr-max` and `data-fr-unit`. Keep the label and the value in agreement.
-- Pick a theme with `data-fr-theme` on a wrapper. Do not restyle the frames with extra borders, shadows or radii.
-- Use `data-fr-static` for print, screenshots and anywhere motion would distract.
-- Do not invent class names. Every class starts with `fr-` and appears in `llms.txt`.
+- Set values with `--tk-value` (0 to 1) and the visible label with `data-tk-max` and `data-tk-unit`. Keep the label and the value in agreement.
+- Pick a theme with `data-tk-theme` on a wrapper. Do not restyle the figures with extra borders, shadows or radii.
+- Use `data-tk-static` for print, screenshots and anywhere motion would distract.
+- Do not invent class names. Every class starts with `tk-` and appears in `llms.txt`.

@@ -1,0 +1,492 @@
+:root,
+[data-tk-theme="paper"] {
+  --tk-bg: #f6f6f3;
+  --tk-fg: #1e1f22;
+  --tk-muted: #6d6e74;
+  --tk-line: #1e1f2259;
+  --tk-acc: #2f5bd8;
+  --tk-acc2: #c9822b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tk-theme]) {
+    --tk-bg: #120f1d;
+    --tk-fg: #e6e1f7;
+    --tk-muted: #968fb3;
+    --tk-line: #e6e1f74a;
+    --tk-acc: #b9a1ff;
+    --tk-acc2: #5ff0d4;
+  }
+}
+
+[data-tk-theme="graphite"] { --tk-bg: #17181b; --tk-fg: #e8e8e6; --tk-muted: #9a9ba1; --tk-line: #e8e8e64d; --tk-acc: #8fb0ff; --tk-acc2: #e0a85a; }
+[data-tk-theme="phosphor"] { --tk-bg: #15130f; --tk-fg: #ecdcb8; --tk-muted: #94876a; --tk-line: #ecdcb84a; --tk-acc: #ffb21e; --tk-acc2: #ff6a3d; }
+[data-tk-theme="blueprint"] { --tk-bg: #0e2a4d; --tk-fg: #dce9f7; --tk-muted: #8aa7c7; --tk-line: #dce9f760; --tk-acc: #7fe0ff; --tk-acc2: #ffd36e; }
+[data-tk-theme="riso"] { --tk-bg: #fbfaf8; --tk-fg: #1f2d73; --tk-muted: #6670a3; --tk-line: #1f2d7366; --tk-acc: #da186b; --tk-acc2: #1f9d8b; }
+[data-tk-theme="moss"] { --tk-bg: #e6e9e0; --tk-fg: #25302a; --tk-muted: #5f6b62; --tk-line: #25302a5c; --tk-acc: #3b7329; --tk-acc2: #a8692a; }
+[data-tk-theme="signal"] { --tk-bg: #e3e5e9; --tk-fg: #14161b; --tk-muted: #5b606b; --tk-line: #14161b52; --tk-acc: #b83808; --tk-acc2: #2f5bd8; }
+[data-tk-theme="ultraviolet"] { --tk-bg: #120f1d; --tk-fg: #e6e1f7; --tk-muted: #968fb3; --tk-line: #e6e1f74a; --tk-acc: #b9a1ff; --tk-acc2: #5ff0d4; }
+[data-tk-theme="rosewater"] { --tk-bg: #fdf3f4; --tk-fg: #3b1f2a; --tk-muted: #86636f; --tk-line: #3b1f2a52; --tk-acc: #cf2f63; --tk-acc2: #7a5af0; }
+[data-tk-theme="glacier"] { --tk-bg: #eef4f6; --tk-fg: #13303a; --tk-muted: #58737c; --tk-line: #13303a55; --tk-acc: #09788d; --tk-acc2: #d0563b; }
+
+@font-face { font-family: "Tick Plot"; font-weight: 400; font-display: swap; src: url("fonts/plot-400.woff2") format("woff2"); }
+@font-face { font-family: "Tick Plot"; font-weight: 600; font-display: swap; src: url("fonts/plot-600.woff2") format("woff2"); }
+@font-face { font-family: "Tick Stub"; font-weight: 400; font-display: swap; src: url("fonts/stub-400.woff2") format("woff2"); }
+@font-face { font-family: "Tick Stub"; font-weight: 700; font-display: swap; src: url("fonts/stub-700.woff2") format("woff2"); }
+@font-face { font-family: "Tick Tui"; font-weight: 400; font-display: swap; src: url("fonts/tui-400.woff2") format("woff2"); }
+@font-face { font-family: "Tick Tui"; font-weight: 700; font-display: swap; src: url("fonts/tui-700.woff2") format("woff2"); }
+@font-face { font-family: "Tick Braille"; font-display: swap; src: url("fonts/braille-400.woff2") format("woff2"); unicode-range: U+2800-28FF; }
+
+:root {
+  --tk-plot-font: "Tick Plot", "Tick Braille", ui-monospace, Menlo, monospace;
+  --tk-stub-font: "Tick Stub", "Tick Braille", ui-monospace, Menlo, monospace;
+  --tk-tui-font: "Tick Tui", "Tick Braille", ui-monospace, Menlo, monospace;
+  --tk-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --tk-ease: cubic-bezier(.65, 0, .35, 1);
+}
+
+.tk-plot,
+.tk-stub,
+.tk-tui {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  color: var(--tk-fg);
+  background-color: var(--tk-bg);
+  font-variant-numeric: tabular-nums;
+}
+
+.tk-plot :is(button, kbd),
+.tk-stub :is(button, kbd),
+.tk-tui :is(button, kbd) {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.tk-plot {
+  --tk-band: 15px;
+  --tk-crop: var(--tk-fg);
+  margin: 14px;
+  padding: calc(var(--tk-band) + 1.5rem) calc(var(--tk-band) + 1.4rem) calc(var(--tk-band) + 4.4rem);
+  font: 13px/1.65 var(--tk-plot-font);
+  background-image:
+    linear-gradient(var(--tk-line), var(--tk-line)),
+    linear-gradient(var(--tk-line), var(--tk-line)),
+    linear-gradient(var(--tk-line), var(--tk-line)),
+    linear-gradient(var(--tk-line), var(--tk-line));
+  background-repeat: no-repeat;
+  background-position: 0 0, 100% 0, 0 100%, 0 0;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+  animation: tk-pen 900ms var(--tk-ease) backwards;
+}
+
+.tk-plot::before {
+  content: "";
+  position: absolute;
+  inset: var(--tk-band);
+  border: 1px solid color-mix(in oklch, var(--tk-fg) 75%, transparent);
+  pointer-events: none;
+  animation: tk-reveal 900ms var(--tk-ease) 160ms backwards;
+}
+
+.tk-plot::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  pointer-events: none;
+  --l: linear-gradient(var(--tk-crop), var(--tk-crop));
+  background: var(--l), var(--l), var(--l), var(--l), var(--l), var(--l), var(--l), var(--l);
+  background-repeat: no-repeat;
+  background-position: 0 14px, 14px 0, 100% 14px, calc(100% - 14px) 0, 0 calc(100% - 14px), 14px 100%, 100% calc(100% - 14px), calc(100% - 14px) 100%;
+  background-size: 9px 1px, 1px 9px, 9px 1px, 1px 9px, 9px 1px, 1px 9px, 9px 1px, 1px 9px;
+}
+
+.tk-plot:hover { --tk-crop: var(--tk-acc); }
+
+.tk-zones {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-size: 9px;
+  line-height: 1;
+  color: var(--tk-muted);
+}
+
+.tk-zones span { position: absolute; translate: -50% -50%; }
+.tk-zones i { position: absolute; background: var(--tk-line); }
+.tk-zones .tk-tick-x { width: 1px; height: var(--tk-band); }
+.tk-zones .tk-tick-y { width: var(--tk-band); height: 1px; }
+
+.tk-zones .tk-xh,
+.tk-zones .tk-yh {
+  background: var(--tk-acc);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.tk-zones .tk-xh { left: var(--tk-band); right: var(--tk-band); height: 1px; }
+.tk-zones .tk-yh { top: var(--tk-band); bottom: var(--tk-band); width: 1px; }
+.tk-plot:hover .tk-xh,
+.tk-plot:hover .tk-yh { opacity: .35; }
+
+.tk-plot-block {
+  position: absolute;
+  right: var(--tk-band);
+  bottom: var(--tk-band);
+  display: grid;
+  grid-template-columns: auto auto;
+  font-size: 10.5px;
+  line-height: 1.35;
+  border-top: 1px solid var(--tk-fg);
+  border-left: 1px solid var(--tk-fg);
+  animation: tk-stamp 380ms var(--tk-spring) 850ms backwards;
+}
+
+.tk-plot-block > * { padding: .3rem .6rem; }
+.tk-plot-block > :nth-child(odd) { color: var(--tk-muted); border-right: 1px solid var(--tk-line); }
+.tk-plot-block > :nth-child(-n + 2) { border-bottom: 1px solid var(--tk-line); }
+.tk-plot-block > :nth-child(2) { color: var(--tk-acc); }
+
+.tk-callouts {
+  display: grid;
+  gap: .55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: tk-callout;
+}
+
+.tk-callouts li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  counter-increment: tk-callout;
+  animation: tk-slide 420ms var(--tk-spring) backwards;
+  animation-delay: calc(700ms + var(--tk-i, 0) * 110ms);
+}
+
+.tk-callouts li::before {
+  content: counter(tk-callout);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  font-size: 10.5px;
+  border: 1px solid var(--tk-fg);
+  border-radius: 50%;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.tk-callouts li > :first-child {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-width: 0;
+}
+
+.tk-callouts li > :first-child::after {
+  content: "";
+  flex: 1;
+  min-width: 1rem;
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--tk-leader, var(--tk-line)) 0 1px, transparent 1px 4px);
+}
+
+.tk-callouts li:hover { --tk-leader: var(--tk-acc); }
+.tk-callouts li:hover::before { color: var(--tk-bg); background: var(--tk-acc); border-color: var(--tk-acc); }
+.tk-callouts li:nth-child(2) { --tk-i: 1; }
+.tk-callouts li:nth-child(3) { --tk-i: 2; }
+.tk-callouts li:nth-child(4) { --tk-i: 3; }
+.tk-callouts li:nth-child(5) { --tk-i: 4; }
+.tk-callouts li:nth-child(n + 6) { --tk-i: 5; }
+
+.tk-dim {
+  position: relative;
+  height: 3.4rem;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  background:
+    repeating-linear-gradient(to right, var(--tk-line) 0 6px, transparent 6px 9px) 0 2.5rem / 100% 1px no-repeat,
+    linear-gradient(var(--tk-fg), var(--tk-fg)) 0 1.6rem / 1px 1.8rem no-repeat,
+    linear-gradient(var(--tk-line), var(--tk-line)) 100% 1.6rem / 1px 1.8rem no-repeat;
+}
+
+.tk-dim::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(2.5rem - 4px);
+  width: calc(var(--tk-value, .5) * 100%);
+  height: 9px;
+  background: var(--tk-acc);
+  clip-path: polygon(0 50%, 8px 0, 8px 4px, calc(100% - 8px) 4px, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, calc(100% - 8px) 5px, 8px 5px, 8px 100%);
+  transform-origin: left;
+  animation: tk-grow 800ms var(--tk-ease) 900ms backwards;
+}
+
+.tk-dim::after {
+  content: "";
+  position: absolute;
+  top: 1.6rem;
+  bottom: 0;
+  left: calc(var(--tk-value, .5) * 100% - 1px);
+  width: 1px;
+  background: var(--tk-acc);
+}
+
+.tk-dim > [data-tk-label] {
+  position: absolute;
+  top: 0;
+  left: calc(var(--tk-value, .5) * 50%);
+  translate: -50% 0;
+  white-space: nowrap;
+  color: var(--tk-acc);
+}
+
+.tk-stub {
+  --tk-stubw: 3.4rem;
+  --tk-dot: radial-gradient(circle, var(--tk-line) 1.25px, transparent 1.75px);
+  display: grid;
+  grid-template-columns: var(--tk-stubw) minmax(0, 1fr);
+  font: 13px/1.65 var(--tk-stub-font);
+  background-image: var(--tk-dot), var(--tk-dot), var(--tk-dot), var(--tk-dot);
+  background-position: left top, left bottom, left top, right top;
+  background-size: 7px 7px;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+}
+
+.tk-stub::before,
+.tk-stub::after {
+  content: "";
+  position: absolute;
+  left: var(--tk-stubw);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--tk-bg);
+  box-shadow: inset 0 0 0 1px var(--tk-line);
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.tk-stub::before { top: 0; clip-path: inset(50% 0 0); }
+.tk-stub::after { top: 100%; clip-path: inset(0 0 50%); }
+
+.tk-stub-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 1.5rem;
+  font-size: 11.5px;
+  letter-spacing: .12em;
+  cursor: pointer;
+  transform-origin: 100% 100%;
+  transition: translate 420ms var(--tk-spring), rotate 420ms var(--tk-spring);
+}
+
+.tk-stub-side > span { writing-mode: vertical-rl; rotate: 180deg; white-space: nowrap; }
+.tk-stub-side b { font-weight: 400; color: var(--tk-acc); }
+.tk-stub-side:hover { translate: -2px 0; rotate: -1.5deg; }
+.tk-torn .tk-stub-side { translate: -14px 6px; rotate: -7deg; }
+
+.tk-stub-body {
+  position: relative;
+  min-width: 0;
+  padding: 1.6rem 1.6rem 1.5rem 1.8rem;
+}
+
+.tk-stub-body::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: -1.5px;
+  width: 3px;
+  background: radial-gradient(circle, color-mix(in oklch, var(--tk-fg) 60%, transparent) 1.5px, transparent 1.6px) center top / 3px 12px repeat-y;
+  animation: tk-perforate 500ms steps(14, end) 150ms backwards;
+}
+
+.tk-stub-body > * { animation: tk-slip 380ms cubic-bezier(.215, .61, .355, 1) backwards; }
+.tk-stub-body > :nth-child(1) { animation-delay: 300ms; }
+.tk-stub-body > :nth-child(2) { animation-delay: 380ms; }
+.tk-stub-body > :nth-child(n + 3) { animation-delay: 460ms; }
+
+.tk-stub-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 11.5px;
+  color: var(--tk-muted);
+}
+
+.tk-stub-head b { color: var(--tk-fg); }
+
+.tk-holes {
+  display: grid;
+  gap: .35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-holes button {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+  text-align: left;
+  color: var(--tk-muted);
+  cursor: pointer;
+}
+
+.tk-holes button::before {
+  content: "";
+  flex: none;
+  width: .95rem;
+  height: .95rem;
+  border: 1.5px solid var(--tk-line);
+  border-radius: 50%;
+  transition: background-color 160ms ease, border-color 160ms ease, scale 260ms var(--tk-spring);
+}
+
+.tk-holes button[aria-pressed="true"] { color: var(--tk-fg); }
+.tk-holes button[aria-pressed="true"]::before { background: var(--tk-acc); border-color: var(--tk-acc); }
+.tk-holes button:hover::before { scale: 1.2; border-color: var(--tk-acc); }
+.tk-holes button.tk-pop::before { animation: tk-pop 300ms var(--tk-spring); }
+
+.tk-punch {
+  position: relative;
+  height: 14px;
+  cursor: ew-resize;
+  touch-action: none;
+  background: radial-gradient(circle closest-side, transparent 70%, var(--tk-line) 72% 92%, transparent 96%) 0 0 / 5% 100% repeat-x;
+}
+
+.tk-punch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle closest-side, var(--tk-acc) 92%, transparent 96%) 0 0 / 5% 100% repeat-x;
+  clip-path: inset(0 calc(100% - round(down, var(--tk-value, .5) * 100%, 5%)) 0 0);
+}
+
+.tk-tui {
+  padding: 1.35rem 1.1rem 1.4rem;
+  font: 12.5px/1.6 var(--tk-tui-font);
+  border: 1px solid var(--tk-line);
+  border-radius: 8px;
+  transition: border-color 200ms ease;
+  animation: tk-boot 500ms steps(6, end) backwards;
+}
+
+.tk-tui:focus-visible,
+.tk-tui:focus-within { outline: none; border-color: var(--tk-acc); }
+
+.tk-tui-title,
+.tk-tui-meta,
+.tk-tui-keys {
+  position: absolute;
+  padding-inline: .35rem;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  background: var(--tk-bg);
+  translate: 0 -50%;
+}
+
+.tk-tui-title { top: 0; left: .8rem; }
+.tk-tui-title sup { margin-right: .15rem; font-size: 10px; color: var(--tk-acc); }
+.tk-tui-meta { top: 0; right: .8rem; color: var(--tk-muted); }
+.tk-tui-keys { top: 100%; right: .8rem; color: var(--tk-muted); }
+.tk-tui-keys kbd { color: var(--tk-acc); }
+
+.tk-procs { width: 100%; border-collapse: collapse; }
+.tk-procs th { padding: 0 .5rem .35rem; font-weight: 400; text-align: left; color: var(--tk-muted); }
+.tk-procs td { padding: .12rem .5rem; white-space: nowrap; }
+.tk-procs :is(th, td):not(:first-child) { text-align: right; }
+.tk-procs tbody tr { cursor: pointer; }
+.tk-procs tbody tr:not([aria-current="true"]):hover td { color: var(--tk-acc); }
+.tk-procs tr[aria-current="true"] td { color: var(--tk-bg); background: var(--tk-acc); }
+
+.tk-braille {
+  margin: 0;
+  overflow: hidden;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  white-space: pre;
+  color: var(--tk-acc);
+}
+
+.tk-gauge {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.tk-gauge > :first-child { color: var(--tk-muted); }
+.tk-gauge > :last-child { min-width: 4ch; text-align: right; color: var(--tk-acc); }
+
+.tk-gauge-bar {
+  flex: 1;
+  height: .7em;
+  cursor: ew-resize;
+  touch-action: none;
+  background:
+    linear-gradient(90deg, var(--tk-acc), var(--tk-acc2)) 0 0 / calc(var(--tk-value, .5) * 100%) 100% no-repeat,
+    linear-gradient(var(--tk-line), var(--tk-line)) 0 50% / 100% 2px no-repeat;
+  mask: repeating-linear-gradient(to right, #000 0 7px, transparent 7px 10px);
+}
+
+@keyframes tk-pen { from { background-size: 0 1px, 1px 0, 0 1px, 1px 0; } }
+@keyframes tk-reveal { from { clip-path: inset(0 100% 100% 0); } }
+@keyframes tk-stamp { from { opacity: 0; scale: 1.25; } }
+@keyframes tk-slide { from { opacity: 0; translate: -6px 0; } }
+@keyframes tk-grow { from { scale: 0 1; } }
+@keyframes tk-perforate { from { clip-path: inset(0 0 100%); } }
+@keyframes tk-slip { from { opacity: 0; translate: 6px 0; } }
+@keyframes tk-pop { 40% { scale: 1.6; } }
+@keyframes tk-boot { from { clip-path: inset(0 100% 0 0); } }
+
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui),
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui)::before,
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui)::after,
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui) *,
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui) *::before,
+:is([data-tk-static], [data-tk-static] *):is(.tk-plot, .tk-stub, .tk-tui) *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.tk-replay,
+.tk-replay::before,
+.tk-replay::after,
+.tk-replay *,
+.tk-replay *::before,
+.tk-replay *::after { animation: none !important; }
+
+.tk-plot:not([data-tk-plot]) [data-tk-zone] { visibility: hidden; }
+
+@supports not (width: round(down, 50%, 5%)) {
+  .tk-punch::before { clip-path: inset(0 calc(100% - var(--tk-value, .5) * 100%) 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.tk-plot, .tk-stub, .tk-tui),
+  :is(.tk-plot, .tk-stub, .tk-tui)::before,
+  :is(.tk-plot, .tk-stub, .tk-tui)::after,
+  :is(.tk-plot, .tk-stub, .tk-tui) *,
+  :is(.tk-plot, .tk-stub, .tk-tui) *::before,
+  :is(.tk-plot, .tk-stub, .tk-tui) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
