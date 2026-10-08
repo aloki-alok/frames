@@ -111,7 +111,7 @@ The stylesheet alone renders every figure. The script adds dragging, punching, z
 ⡀⠀⠀⠀⡠⠉⠢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠊⠉⠢⡀⠀⠀⠀⡐⠁⠀⠐⢄⠀⠀⠀⡠⢄⠀⠀⢀⠁
 ⠐⢄⢀⠊⠀⠀⠀⠑⡀⠀⢀⠌⠑⢄⢀⠔⠁⠀⠀⠀⠐⢄⣀⠌⠀⠀⠀⠀⠀⠢⠤⠊⠀⠀⠑⠔⠁⠀
 ⠀⠀⠁⠀⠀⠀⠀⠀⠐⠒⠁⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
-  <p class="fr-gauge"><span>used</span><span class="fr-gauge-bar" style="--fr-value: .76" data-fr-input data-fr-max="800" data-fr-unit="ms" aria-label="Budget used"></span><span data-fr-label>610 ms</span></p>
+  <p class="fr-gauge"><span>used</span><span class="fr-gauge-bar" style="--fr-value: .7625" data-fr-input data-fr-max="800" data-fr-unit="ms" aria-label="Budget used"></span><span data-fr-label>610 ms</span></p>
   <span class="fr-tui-keys"><kbd>space</kbd> pause</span>
 </figure>
 ```
