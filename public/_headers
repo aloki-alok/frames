@@ -1,5 +1,11 @@
 /*
   Access-Control-Allow-Origin: *
 
+/*.css
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/*.js
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 /fonts/*
   Cache-Control: public, max-age=2592000
