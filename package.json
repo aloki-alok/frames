@@ -1,0 +1,11 @@
+{
+  "name": "frames",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "llms": "bun scripts/llms.js",
+    "dev": "bunx wrangler dev",
+    "deploy": "bunx wrangler deploy"
+  }
+}
