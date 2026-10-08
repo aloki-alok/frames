@@ -1,5 +1,5 @@
 {
-  "name": "frames",
+  "name": "tick",
   "private": true,
   "type": "module",
   "scripts": {

@@ -1,13 +1,13 @@
-import { init, play } from './frames.js';
+import { init, play } from './tick.js';
 
 const THEMES = ['paper', 'graphite', 'phosphor', 'blueprint', 'riso', 'moss', 'signal', 'ultraviolet', 'rosewater', 'glacier'];
 const root = document.documentElement;
 
 const saved = () => {
-  try { return JSON.parse(localStorage.getItem('frames') || '{}'); } catch { return {}; }
+  try { return JSON.parse(localStorage.getItem('tick') || '{}'); } catch { return {}; }
 };
 const save = (patch) => {
-  try { localStorage.setItem('frames', JSON.stringify({ ...saved(), ...patch })); } catch {}
+  try { localStorage.setItem('tick', JSON.stringify({ ...saved(), ...patch })); } catch {}
 };
 
 function dedent(html) {
@@ -57,8 +57,8 @@ function demoBars() {
 }
 
 function setTheme(theme) {
-  if (theme) root.dataset.frTheme = theme;
-  else delete root.dataset.frTheme;
+  if (theme) root.dataset.tkTheme = theme;
+  else delete root.dataset.tkTheme;
   save({ theme });
   document.querySelectorAll('[data-theme-pick]').forEach((el) => {
     const on = el.dataset.themePick === theme;
@@ -78,9 +78,9 @@ function themeDots() {
     dot.setAttribute('role', 'radio');
     dot.setAttribute('aria-label', theme);
     dot.title = theme;
-    dot.dataset.frTheme = theme;
+    dot.dataset.tkTheme = theme;
     dot.dataset.themePick = theme;
-    dot.addEventListener('click', () => setTheme(root.dataset.frTheme === theme ? null : theme));
+    dot.addEventListener('click', () => setTheme(root.dataset.tkTheme === theme ? null : theme));
     box.appendChild(dot);
   });
   box.addEventListener('keydown', (e) => {
@@ -99,15 +99,15 @@ function themeTiles() {
   const grid = document.getElementById('theme-grid');
   THEMES.forEach((theme, i) => {
     const tile = document.createElement('figure');
-    tile.className = 'fr-tui tile';
-    tile.dataset.frTheme = theme;
+    tile.className = 'tk-tui tile';
+    tile.dataset.tkTheme = theme;
     tile.dataset.themePick = theme;
-    tile.dataset.frStatic = '';
+    tile.dataset.tkStatic = '';
     tile.innerHTML = `
-      <figcaption class="fr-tui-title"><sup>${i}</sup>${theme}</figcaption>
-      <p><span class="swatch" style="color: var(--fr-fg)">██</span><span class="swatch" style="color: var(--fr-muted)">██</span><span class="swatch" style="color: var(--fr-acc)">██</span><span class="swatch" style="color: var(--fr-acc2)">██</span></p>
-      <p><span>text</span><span style="color: var(--fr-acc)">accent</span></p>
-      <span class="fr-tui-keys"><kbd>enter</kbd> use</span>`;
+      <figcaption class="tk-tui-title"><sup>${i}</sup>${theme}</figcaption>
+      <p><span class="swatch" style="color: var(--tk-fg)">██</span><span class="swatch" style="color: var(--tk-muted)">██</span><span class="swatch" style="color: var(--tk-acc)">██</span><span class="swatch" style="color: var(--tk-acc2)">██</span></p>
+      <p><span>text</span><span style="color: var(--tk-acc)">accent</span></p>
+      <span class="tk-tui-keys"><kbd>enter</kbd> use</span>`;
     const use = document.createElement('button');
     use.type = 'button';
     use.className = 'use';
@@ -120,10 +120,10 @@ function themeTiles() {
 
 function motionSwitch() {
   const button = document.getElementById('motion');
-  const sync = () => button.setAttribute('aria-pressed', String(root.hasAttribute('data-fr-static')));
+  const sync = () => button.setAttribute('aria-pressed', String(root.hasAttribute('data-tk-static')));
   button.addEventListener('click', () => {
-    const still = !root.hasAttribute('data-fr-static');
-    root.toggleAttribute('data-fr-static', still);
+    const still = !root.hasAttribute('data-tk-static');
+    root.toggleAttribute('data-tk-static', still);
     save({ still });
     sync();
     if (!still) play();
@@ -133,8 +133,8 @@ function motionSwitch() {
 
 function installLines() {
   const base = new URL('.', location.href).href;
-  const css = `<link rel="stylesheet" href="${base}frames.css">`;
-  const js = `<script type="module" src="${base}frames.js"></script>`;
+  const css = `<link rel="stylesheet" href="${base}tick.css">`;
+  const js = `<script type="module" src="${base}tick.js"></script>`;
   document.getElementById('install-line').textContent = css;
   document.getElementById('use-css').textContent = css;
   document.getElementById('use-js').textContent = js;
@@ -145,7 +145,7 @@ function installLines() {
 }
 
 function playOnArrival() {
-  if (root.hasAttribute('data-fr-static') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (root.hasAttribute('data-tk-static') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const finite = (a) => a.effect?.getComputedTiming().iterations !== Infinity;
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
