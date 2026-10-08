@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" data-fr-manual>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>frames</title>
+  <meta name="description" content="Framed figures for docs, dashboards and write-ups. Three styles, ten themes, plain CSS and one optional script.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/tui-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="frames.css">
+  <link rel="stylesheet" href="site.css">
+  <script>try { const s = JSON.parse(localStorage.getItem('frames') || '{}'); if (s.theme) document.documentElement.dataset.frTheme = s.theme; if (s.still) document.documentElement.dataset.frStatic = ''; } catch {}</script>
+  <script type="module" src="site.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="mark" href="#">frames<span>.</span></a>
+    <nav aria-label="Sections">
+      <a href="#plot">plot</a>
+      <a href="#stub">stub</a>
+      <a href="#tui">tui</a>
+      <a href="#themes">themes</a>
+      <a href="#use">use</a>
+      <a href="https://github.com/ryu-ryuk/frames">github</a>
+    </nav>
+    <div class="switches">
+      <div class="dots" role="radiogroup" aria-label="Theme" id="theme-dots"></div>
+      <button type="button" class="motion" id="motion" aria-pressed="false">static</button>
+    </div>
+  </header>
+
+  <main>
+    <figure class="fr-plot hero">
+      <h1>Figures that look like the objects they describe.</h1>
+      <p class="lede">Three framed styles for docs, dashboards and write-ups: a drawing sheet, a perforated ticket and a terminal panel. Plain CSS, ten themes, and one small optional script that makes them respond.</p>
+      <div class="install">
+        <code id="install-line">&lt;link rel="stylesheet" href="frames.css"&gt;</code>
+        <button type="button" class="copy" data-copy-from="install-line">copy</button>
+      </div>
+      <figcaption class="fr-plot-block">
+        <span>sheet</span><span>frames</span>
+        <span>rev 1</span><span data-fr-zone>zone ·</span>
+      </figcaption>
+    </figure>
+
+    <section class="style" id="plot" aria-labelledby="plot-h">
+      <div class="style-head">
+        <h2 id="plot-h">plot</h2>
+        <p>An engineering drawing sheet. Zoned border, crop marks, a title block, and values drawn as dimension lines. Hover for the grid zone, drag a dimension to resize it.</p>
+      </div>
+      <div class="demos">
+        <div class="demo" data-name="plot-callouts">
+          <figure class="fr-plot">
+            <ol class="fr-callouts">
+              <li><span>caller stops talking</span><span>0 ms</span></li>
+              <li><span>speech-to-text final</span><span>180 ms</span></li>
+              <li><span>model first token</span><span>420 ms</span></li>
+              <li><span>first audio out</span><span>610 ms</span></li>
+            </ol>
+            <figcaption class="fr-plot-block">
+              <span>fig 01</span><span>turn stages</span>
+              <span>rev a</span><span data-fr-zone>zone ·</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="demo" data-name="plot-dimension">
+          <figure class="fr-plot">
+            <div class="fr-dim" style="--fr-value: .7625" data-fr-input data-fr-max="800" data-fr-unit="ms" aria-label="Latency spent">
+              <span data-fr-label>610 ms</span>
+            </div>
+            <figcaption class="fr-plot-block">
+              <span>fig 02</span><span>latency budget</span>
+              <span>max</span><span>800 ms</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="style" id="stub" aria-labelledby="stub-h">
+      <div class="style-head">
+        <h2 id="stub-h">stub</h2>
+        <p>A perforated ticket. The tear line splits off a numbered stub. Click a hole to punch it, drag across a row to punch it, click the stub to tear it off.</p>
+      </div>
+      <div class="demos">
+        <div class="demo" data-name="stub-checklist">
+          <figure class="fr-stub">
+            <button type="button" class="fr-stub-side"><span><b>no. 0417</b> launch</span></button>
+            <div class="fr-stub-body">
+              <div class="fr-stub-head"><b>launch checks</b><span data-fr-count>3 of 5 punched</span></div>
+              <ul class="fr-holes">
+                <li><button type="button" aria-pressed="true">dns records live</button></li>
+                <li><button type="button" aria-pressed="true">tls certificate issued</button></li>
+                <li><button type="button" aria-pressed="true">health check green</button></li>
+                <li><button type="button" aria-pressed="false">rollback rehearsed</button></li>
+                <li><button type="button" aria-pressed="false">status page linked</button></li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+        <div class="demo" data-name="stub-punch">
+          <figure class="fr-stub">
+            <button type="button" class="fr-stub-side"><span><b>no. 0418</b> disk</span></button>
+            <div class="fr-stub-body">
+              <div class="fr-stub-head"><b>volume used</b><span>512 GB</span></div>
+              <div class="fr-punch" style="--fr-value: .62" data-fr-input data-fr-max="512" data-fr-unit="GB" aria-label="Volume used"></div>
+              <p class="fr-stub-head"><span>drag to punch</span><b data-fr-label>317 GB</b></p>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="style" id="tui" aria-labelledby="tui-h">
+      <div class="style-head">
+        <h2 id="tui-h">tui</h2>
+        <p>A terminal monitor panel. Hotkey number in the title, key hints on the bottom edge, a live braille trace. Focus a panel, then use j and k, or space to pause.</p>
+      </div>
+      <div class="demos">
+        <div class="demo" data-name="tui-table">
+          <figure class="fr-tui">
+            <figcaption class="fr-tui-title"><sup>1</sup>services</figcaption>
+            <span class="fr-tui-meta">p95</span>
+            <table class="fr-procs">
+              <thead><tr><th>name</th><th>ms</th><th>trend</th></tr></thead>
+              <tbody>
+                <tr><td>speech-to-text</td><td>182</td><td>▃▄▃▅▄▃▄▃</td></tr>
+                <tr aria-current="true"><td>model</td><td>241</td><td>▅▆▅▇▆▅▄▅</td></tr>
+                <tr><td>text-to-speech</td><td>188</td><td>▂▂▃▂▂▃▂▂</td></tr>
+                <tr><td>carrier</td><td>46</td><td>▁▁▂▁▁▁▂▁</td></tr>
+              </tbody>
+            </table>
+            <span class="fr-tui-keys"><kbd>j</kbd>/<kbd>k</kbd> select</span>
+          </figure>
+        </div>
+        <div class="demo" data-name="tui-graph">
+          <figure class="fr-tui">
+            <figcaption class="fr-tui-title"><sup>2</sup>turn latency</figcaption>
+            <span class="fr-tui-meta" data-fr-now>610 ms</span>
+            <pre class="fr-braille" data-fr-live data-fr-rows="4" data-fr-max="800" data-fr-unit="ms" data-fr-series="0.62,0.6,0.64,0.66,0.61,0.58,0.55,0.57,0.6,0.63,0.67,0.7,0.68,0.64,0.6,0.58,0.62,0.66,0.69,0.72,0.7,0.66,0.61,0.57,0.55,0.58,0.62,0.65,0.63,0.6,0.58,0.61,0.64,0.68,0.71,0.73,0.7,0.67,0.63,0.6,0.59,0.62,0.66,0.7,0.74,0.76,0.73,0.69,0.65,0.62,0.6,0.63,0.66,0.69,0.67,0.64,0.62,0.65,0.68,0.7625">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐
+⠀⠀⠀⠀⠀⠀⠀⠀⡠⠢⡀⠀⠀⠀⡠⠉⠢⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠊⠉⠢⡀⠀⠀⠀⡐⠁⠀⠐⢄⠀⠀⠀⡠⢄⠀⠀⢀⠁
+⠤⠔⠉⢂⠀⠀⢀⠌⠀⠀⠐⢄⢀⠊⠀⠀⠀⠑⡀⠀⢀⠌⠑⢄⢀⠔⠁⠀⠀⠀⠐⢄⣀⠌⠀⠀⠀⠀⠀⠢⠤⠊⠀⠀⠑⠔⠁⠀
+⠀⠀⠀⠀⠑⠒⠁⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠐⠒⠁⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre>
+            <p class="fr-gauge"><span>used</span><span class="fr-gauge-bar" style="--fr-value: .76" data-fr-input data-fr-max="800" data-fr-unit="ms" aria-label="Budget used"></span><span data-fr-label>610 ms</span></p>
+            <span class="fr-tui-keys"><kbd>space</kbd> pause</span>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="themes" id="themes" aria-labelledby="themes-h">
+      <div class="style-head">
+        <h2 id="themes-h">themes</h2>
+        <p>Ten palettes. Set one on any element with <code>data-fr-theme</code>, or leave it off to follow the system: paper in light, ultraviolet in dark.</p>
+      </div>
+      <div class="theme-grid" id="theme-grid"></div>
+    </section>
+
+    <section class="use" id="use" aria-labelledby="use-h">
+      <div class="style-head">
+        <h2 id="use-h">use</h2>
+        <p>No build step and no framework. Every figure renders with the stylesheet alone; the script adds the live parts.</p>
+      </div>
+      <ol class="steps">
+        <li><p>Add the stylesheet. The three faces load from next to it, and only the ones a page uses.</p><pre id="use-css">&lt;link rel="stylesheet" href="frames.css"&gt;</pre></li>
+        <li><p>Add the script for dragging, punching, zone readouts and live graphs.</p><pre id="use-js">&lt;script type="module" src="frames.js"&gt;&lt;/script&gt;</pre></li>
+        <li><p>Copy any figure above with its <span class="kbdish">copy html</span> button and paste it in.</p></li>
+        <li><p>Pick a theme with <code>data-fr-theme="ultraviolet"</code>. Freeze motion with <code>data-fr-static</code>. Both work on any ancestor.</p></li>
+      </ol>
+    </section>
+
+    <section class="agents" id="agents" aria-labelledby="agents-h">
+      <div class="style-head">
+        <h2 id="agents-h">for agents</h2>
+        <p>Point a coding agent at these and it can place figures without guessing the markup.</p>
+      </div>
+      <ul class="links">
+        <li><a href="llms.txt">llms.txt</a><span>every figure, as markup an agent can copy</span></li>
+        <li><a href="skill.md">skill.md</a><span>a skill file: when to use which figure, and the rules</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>frames by <a href="https://alokranjan.me">ryu</a></span>
+    <span>MIT licensed</span>
+    <a href="https://github.com/ryu-ryuk/frames">source</a>
+  </footer>
+</body>
+</html>
