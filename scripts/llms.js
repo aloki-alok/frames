@@ -36,7 +36,7 @@ ${demos.map((d) => `### ${d.name}\n\n\`\`\`html\n${d.markup}\n\`\`\``).join('\n\
 ## More
 
 - [Skill file](${at('skill.md')}): when to use which figure, and the rules.
-- [Source](https://github.com/ryu-ryuk/frames)
+- [Source](https://github.com/aloki-alok/frames)
 `;
 
 await Bun.write(new URL('llms.txt', root), text);
