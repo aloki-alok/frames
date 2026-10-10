@@ -1,8 +1,21 @@
 import { test, expect } from 'bun:test';
+import { readFileSync } from 'node:fs';
 import { braille, fraction, label, normalize, resample } from '../public/tick.js';
 
 const BOTTOM_ROW_DOTS = [0x40, 0x80];
 const TOP_ROW_DOTS = [0x01, 0x08];
+
+test('theme gallery tiles are present in HTML without JavaScript', () => {
+  const html = readFileSync(new URL('../public/index.html', import.meta.url), 'utf8');
+  const themeGrid = html.match(/<div class="theme-grid" id="theme-grid">([\s\S]*?)<\/div>\s*<\/section>/)?.[1];
+  const themes = [...(themeGrid ?? '').matchAll(/<figure class="tk-tui tile" data-tk-theme="([^"]+)"/g)]
+    .map(([, theme]) => theme);
+
+  expect(themes).toEqual([
+    'paper', 'graphite', 'phosphor', 'blueprint', 'riso',
+    'moss', 'signal', 'ultraviolet', 'rosewater', 'glacier',
+  ]);
+});
 
 test('braille draws one dot per sample at its height (a trace, not an area)', () => {
   expect(braille([0, 1], 1)).toBe(String.fromCharCode(0x2800 + BOTTOM_ROW_DOTS[0] + TOP_ROW_DOTS[1]));

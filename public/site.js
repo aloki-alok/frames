@@ -97,24 +97,8 @@ function themeDots() {
 
 function themeTiles() {
   const grid = document.getElementById('theme-grid');
-  THEMES.forEach((theme, i) => {
-    const tile = document.createElement('figure');
-    tile.className = 'tk-tui tile';
-    tile.dataset.tkTheme = theme;
-    tile.dataset.themePick = theme;
-    tile.dataset.tkStatic = '';
-    tile.innerHTML = `
-      <figcaption class="tk-tui-title"><sup>${i}</sup>${theme}</figcaption>
-      <p><span class="swatch" style="color: var(--tk-fg)">██</span><span class="swatch" style="color: var(--tk-muted)">██</span><span class="swatch" style="color: var(--tk-acc)">██</span><span class="swatch" style="color: var(--tk-acc2)">██</span></p>
-      <p><span>text</span><span style="color: var(--tk-acc)">accent</span></p>
-      <span class="tk-tui-keys"><kbd>enter</kbd> use</span>`;
-    const use = document.createElement('button');
-    use.type = 'button';
-    use.className = 'use';
-    use.setAttribute('aria-label', `Use the ${theme} theme`);
-    tile.addEventListener('click', () => setTheme(theme));
-    tile.appendChild(use);
-    grid.appendChild(tile);
+  grid.querySelectorAll('[data-theme-pick]').forEach((tile) => {
+    tile.addEventListener('click', () => setTheme(tile.dataset.themePick));
   });
 }
 
